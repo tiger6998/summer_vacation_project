@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Add a people{% endblock %}
+
+{% block body_block %}
+	{% if added %}
+	<strong>thank you for adding a person</strong>
+	<a href="/">Return to the homepage.</a><br />
+	{% else %}
+	<strong>You can add a person here!</strong>
+	
+	<form id="people_form" method="post" action="/add_people/"
+		enctype="multipart/form-data">
+		
+		{% csrf_token %}
+		
+		{{ people_form.as_p }}
+		<input type="submit" name="submit" value="Add" />
+		
+	</form>
+	{% endif %}
+{% endblock %}

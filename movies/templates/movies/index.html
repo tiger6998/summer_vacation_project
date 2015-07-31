@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %} This is the index {% endblock %}
+
+{% block body_block %}
+	{% if user.is_authenticated %}
+	<h1>Welcome back! {{ user.username }}</h1>
+	{% else %}
+	<h1>I say...</h1>
+	hello movies!<br />
+	{% endif %}
+	{% if movies %}
+	<div class="container-fluid">
+		<h1>Popular Movies:</h1>
+		<div class="row">
+			{% for movie in movies %}
+			<div class="col-md-3">
+				<a href="/movie/detail/{{ movie.slug }}"><img src="{{ movie.picture.url }}" alt="This is the picture of the movie" width="136" height="200"></a>
+				<h4>{{ movie.name }}</h4></a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+			
+	<!--<table>
+		<tbody>
+		<tr>
+		{% for movie in movies %}
+			<td><div><a href="/movie/detail/{{ movie.slug }}"><img src="{{ movie.picture.url }}" alt="This is the picture of the movie" width="68" height="100">
+			<p>{{ movie.name }}</p></a></div>
+			</td>
+		{% endfor %}
+		<tr>
+		</tbody>
+	</table>-->
+	{% else %}
+		<strong>There are no movies present.</strong>
+	{% endif %}
+	{% if people %}
+	<div class="container-fluid">
+		<h1>Popular Celebs:</h1>
+		<div class="row">
+			{% for person in people %}
+			<div class="col-md-3">
+				<a href="{% url 'people' person.slug %}"><img src="{{ person.photo.url }}" alt="This is the picture of the celebrity" width="136" height="200"></a>
+				<h4>{{ person.name }}</h4></a>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<!--<h1>Popluar Celebs</h1>
+	<table>
+		<tbody>
+		{% for person in people %}
+		<tr>
+			<td><div><a href="{% url 'people' person.slug %}"><img src="{{ person.photo.url }}" alt="This is the picture of the celebrity" width="68" height="100"> </a>
+			<br/>{{ person.name }}</div>
+			</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+	</table>-->
+	{% else %}
+	<strong>There is no celebs present!</strong>
+	{% endif %}
+	
+{% endblock %}

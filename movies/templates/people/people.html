@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}People{% endblock %}
+
+{% block body_block %}
+	<h1>{{ people_name }}</h1>
+	{% if people %}
+	<img src="{{ people.photo.url }}" alt="This is the picture of the people">
+	<div>
+		<ul>
+			<li>career: {{ people.get_career_display }}</li>
+			<li>Intro: {{ people.intro }}</li>
+			<li>born: {{ people.born }}</li>
+		</ul>
+	<div>
+	{% else %}
+	<strong>There is no such person!</strong>
+	{% endif %}
+{% endblock %}

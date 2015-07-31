@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Movie Detail{% endblock %}
+
+{% block body_block %}
+	<h1>{{ movie_name }}</h1>
+	{% if movie %}
+	<img src="{{ movie.picture.url }}" alt="This is the picture of the movie">
+	<div>
+		<ul>
+			<li>runtime: {{ movie.runtime }}</li>
+			<li>Genre: {{ movie.Genre }}</li>
+			<li>release date: {{ movie.release_date }}</li>
+			<li>storyline: {{ movie.storyline }}</li>
+		</ul>
+	<div>
+	{% else %}
+	<strong>There is no such movie!</strong>
+	{% endif %}
+	<h2>Pitures:</h2>
+	{% if moviepicture %}
+		<ul>
+		{% for picture in moviepicture %}
+			<li><img src="{{ picture.picture.url }}" alt="This is the picture of the movie"></li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<strong> 还没有图片！</strong>
+	{% endif %}
+{% endblock %}
+		

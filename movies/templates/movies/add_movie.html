@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Add a movie{% endblock %}
+
+{% block body_block %}
+	{% if added %}
+	<strong> thank you for adding a movie!</strong>
+	<a href="/movie">Return to the homepage.</a><br />
+	{% else %}
+	<strong>You can add a movie here!</strong>
+	
+	<form id="movie_form" method="post" action="/movie/add_movie/"
+		enctype="multipart/form-data">
+		
+		{% csrf_token %}
+		
+		{{ movie_form.as_p }}
+		<input type="submit" name="submit" value="Add" />
+		
+	</form>
+	{% endif %}
+{% endblock %}
