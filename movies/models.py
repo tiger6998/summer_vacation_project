@@ -69,6 +69,3 @@ class Comments(models.Model):
 	
 	def __unicode__(self):
 		return self.movie.name
-		
-class test:
-    pass
