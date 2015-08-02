@@ -42,5 +42,12 @@ def people(request, people_name_slug):
 	except People.DoesNotExist:
 		print "here is the problem"
 		pass
+	if people:
+		try:
+			peoplepicture = PeoplePiture.objects.filter(people=people)
+			context_dict['peoplepicture'] = peoplepicture
+		except PeoplePiture.DoesNotExist:
+			print "Here is the second question"
+			pass
 	
 	return render(request, 'people/people.html', context_dict)

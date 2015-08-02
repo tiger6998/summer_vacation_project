@@ -19,7 +19,7 @@
 	{% else %}
 	<strong>There is no such movie!</strong>
 	{% endif %}
-	<h2>Pitures:</h2>
+	<h2>图片:</h2>
 	{% if moviepicture %}
 		<ul>
 		{% for picture in moviepicture %}
@@ -28,6 +28,16 @@
 		</ul>
 	{% else %}
 		<strong> 还没有图片！</strong>
+	{% endif %}
+	<h2>精彩评论:</h2>
+	{% if comments %}
+		<ul>
+		{% for comment in comments %}
+			<li><p>{{ comment.comment }}</p></li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<strong> 还没有评论！</strong>
 	{% endif %}
 {% endblock %}
 		

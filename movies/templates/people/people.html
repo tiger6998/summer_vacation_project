@@ -18,4 +18,14 @@
 	{% else %}
 	<strong>There is no such person!</strong>
 	{% endif %}
+	<h2>Pitures:</h2>
+	{% if moviepicture %}
+		<ul>
+		{% for picture in moviepicture %}
+			<li><img src="{{ picture.picture.url }}" alt="This is the picture of the movie"></li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<strong> 还没有图片！</strong>
+	{% endif %}
 {% endblock %}

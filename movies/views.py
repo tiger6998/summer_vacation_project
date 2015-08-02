@@ -63,8 +63,12 @@ def movie(request, movie_name_slug):
 			context_dict['moviepicture'] = moviepicture
 		except MoviePicture.DoesNotExist:
 			print "here is the second problem"
+			pass	
+		try:
+			comments = Comments.objects.filter(movie=movie)
+			context_dict['comments'] = comments
+		except:
 			pass
-	
 	return render(request, 'movies/movie.html', context_dict)
 	
 def register(request):
@@ -124,3 +128,13 @@ def user_login(request):
 def user_logout(request):
 	logout(request)
 	return HttpResponseRedirect('/movie/')
+
+@login_required
+def comments(request, movie_name_slug):
+	
+	added = False
+	
+	if request.method == 'POST':
+		comment_form = MovieCommentsForm(data=request.POST)
+		if comment_form.is_valid():
+			comment = comment_form(commit=)
