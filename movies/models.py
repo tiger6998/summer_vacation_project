@@ -63,9 +63,12 @@ class PeoplePicture(models.Model):
 		return self.movie.name
 		
 class Comments(models.Model):
-	User = models.ForeignKey(User)
+	user = models.ForeignKey(User)
 	movie = models.ForeignKey(Movies)
 	comment = models.TextField()
 	
 	def __unicode__(self):
 		return self.movie.name
+		
+class test:
+    pass
