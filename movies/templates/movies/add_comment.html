@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Add a comment{% endblock %}
+
+{% block body_block %}
+	{% if added %}
+	<strong>谢谢评论! </strong>
+	<a href = "/movie/detail/{{ movie_name_slug }}">回到电影页面</a><br />
+	{% else %}
+	<strong>你可以在这列添加电影评论!</strong>
+	<form id="comment_form" method="post" action="/movie/detail/{{ movie_name_slug }}/add_comment/"
+		enctype="multipart/form-data">
+		
+		{% csrf_token %}
+		
+		{{ comment_form.as_p }}
+		<input type="submit" name="submit" value="Add" />
+		
+	</form>
+	{% endif %}
+{% endblock %}

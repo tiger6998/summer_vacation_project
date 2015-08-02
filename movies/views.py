@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from movies.models import *
-from movies.forms import MovieForm, PeopleForm, UserForm, UserProfileForm
+from movies.forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -130,11 +130,32 @@ def user_logout(request):
 	return HttpResponseRedirect('/movie/')
 
 @login_required
-def comments(request, movie_name_slug):
+def add_comment(request, movie_name_slug):
 	
 	added = False
 	
+	print movie_name_slug
+	
+
 	if request.method == 'POST':
 		comment_form = MovieCommentsForm(data=request.POST)
 		if comment_form.is_valid():
-			comment = comment_form(commit=)
+			user = User.objects.get(username=request.user)
+			try:
+				movie = Movies.objects.get(slug=movie_name_slug)
+			except Movies.DoesNotExist:
+				print "here is the problem" + movie_name_slug
+				pass
+			if movie:
+				comment = comment_form.save(commit=False)
+				comment.user = user
+				comment.movie = movie
+				comment.save()
+				added = True
+		else:
+			print comment_form.errors
+	else: 
+		comment_form = MovieCommentsForm()
+		
+	return render(request, 'movies/add_comment.html',{'comment_form':comment_form, 'added':added, 'movie_name_slug':movie_name_slug})
+	

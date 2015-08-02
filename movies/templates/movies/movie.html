@@ -30,6 +30,7 @@
 		<strong> 还没有图片！</strong>
 	{% endif %}
 	<h2>精彩评论:</h2>
+	<a href="/movie/detail/{{ movie.slug }}/add_comment">添加评论</a>
 	{% if comments %}
 		<ul>
 		{% for comment in comments %}
