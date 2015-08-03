@@ -29,3 +29,8 @@ class MovieCommentsForm(forms.ModelForm):
 	class Meta:
 		model = Comments
 		fields = ('comment',)
+		
+class MoviePictureForm(forms.ModelForm):
+	class Meta:
+		model = MoviePicture
+		fields = ('picture',)

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from movies.models import People, Movies
+from movies.models import *
 from movies.forms import MovieForm, PeopleForm
 from django.contrib.auth.decorators import login_required
 
@@ -44,9 +44,9 @@ def people(request, people_name_slug):
 		pass
 	if people:
 		try:
-			peoplepicture = PeoplePiture.objects.filter(people=people)
+			peoplepicture = PeoplePicture.objects.filter(people=people)
 			context_dict['peoplepicture'] = peoplepicture
-		except PeoplePiture.DoesNotExist:
+		except PeoplePicture.DoesNotExist:
 			print "Here is the second question"
 			pass
 	

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Add a comment{% endblock %}
+
+{% block body_block %}
+	<div class="container-fluid">
+		<h1>电影: </h1>
+			{% for movie in movies %}
+			<!--<div class="col-md-3">
+				<a href="/movie/detail/{{ movie.slug }}"><img src="{{ movie.picture.url }}" alt="This is the picture of the movie" width="136" height="200"></a>
+				<h4>{{ movie.name }}</h4></a>
+			</div>-->
+			<div class="row">
+			  <div class="col-md-1">
+			    <div class="thumbnail">
+			      <a href="/movie/detail/{{ movie.slug }}"><img src="{{ movie.picture.url }}" alt="This is the picture of the movie" width="136" height="200"></a>
+			      <div class="caption">
+			        <h4>{{ movie.name }}</h4>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			{% endfor %}
+	</div>
+	
+	<div class="pagination">
+		<span class="step-links">
+			{% if movies.has_previous %}
+				<a href="?page={{ movies.previous_page_number }}">previous</a>
+			{% endif %}
+			
+			<span class="current">
+				Page {{ movies.number }} of {{ movies.paginator.num_pages }}.
+			</span>
+			
+			{% if movies.has_next %}
+            <a href="?page={{ movies.next_page_number }}">next</a>
+        	{% endif %}
+    	</span>
+	</div>
+{% endblock %}

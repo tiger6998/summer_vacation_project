@@ -20,6 +20,7 @@
 	<strong>There is no such movie!</strong>
 	{% endif %}
 	<h2>图片:</h2>
+	<a href="/movie/detail/{{ movie.slug }}/add_picture">添加图片</a>
 	{% if moviepicture %}
 		<ul>
 		{% for picture in moviepicture %}

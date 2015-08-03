@@ -1,0 +1,9 @@
+.navbar {
+    margin-bottom: 0;
+}
+
+h4.test {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

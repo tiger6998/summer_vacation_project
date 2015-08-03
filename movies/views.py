@@ -5,6 +5,7 @@ from movies.forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 def index(request):
@@ -129,14 +130,11 @@ def user_logout(request):
 	logout(request)
 	return HttpResponseRedirect('/movie/')
 
-@login_required
+@login_required(login_url='/movie/login/')
 def add_comment(request, movie_name_slug):
 	
 	added = False
 	
-	print movie_name_slug
-	
-
 	if request.method == 'POST':
 		comment_form = MovieCommentsForm(data=request.POST)
 		if comment_form.is_valid():
@@ -157,5 +155,48 @@ def add_comment(request, movie_name_slug):
 	else: 
 		comment_form = MovieCommentsForm()
 		
-	return render(request, 'movies/add_comment.html',{'comment_form':comment_form, 'added':added, 'movie_name_slug':movie_name_slug})
+	return render(request, 'movies/add_comment.html',
+		{'comment_form':comment_form, 'added':added, 'movie_name_slug':movie_name_slug})
+
+@login_required
+def add_picture(request, movie_name_slug):
 	
+	added = False
+	
+	if request.method == 'POST':
+		picture_form = MoviePictureForm(data=request.POST)
+		if picture_form.is_valid():
+			try:
+				movie = Movies.objects.get(slug=movie_name_slug)
+			except Movies.DoesNotExist:
+				print "here is the problem" + movie_name_slug
+				pass
+			if movie:
+				picture = picture_form.save(commit=False)
+				if 'picture' in request.FILES:
+					picture.picture = request.FILES['picture']
+					picture.movie = movie
+					picture.save()
+					added = True
+		else:
+			print picture_form.errors
+	else: 
+		picture_form = MoviePictureForm()
+		
+	return render(request, 'movies/add_picture.html',
+		{'picture_form':picture_form, 'added':added, 'movie_name_slug':movie_name_slug})
+
+def movielist(request):
+	movie_list = Movies.objects.all()
+	paginator  = Paginator(movie_list, 1)
+	
+	page = request.GET.get('page')
+	try:
+		movies = paginator.page(page)
+	except PageNotAnInteger:
+		movies = paginator.page(1)
+	except EmptyPage:
+		movies = paginator.page(paginator.num_pages)
+		
+	return render(request, 'movies/movie_list.html', {'movies': movies})
+		
