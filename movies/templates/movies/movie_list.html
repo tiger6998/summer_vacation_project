@@ -5,14 +5,32 @@
 {% block title %}Add a comment{% endblock %}
 
 {% block body_block %}
-	<div class="container-fluid">
+	<div class="container">
+	<div class="table">
 		<h1>电影: </h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th></th>
+					<th>名称</th>
+					<th>年份</th>
+				</tr>
+			</thead>
+			<tbody>
 			{% for movie in movies %}
+				<tr>
+					<td class="col-md-3"><a href="/movie/detail/{{ movie.slug }}"><img src="{{ movie.picture.url }}" alt="This is the picture of the movie" width="214" height="317"></a></td>
+					<td class="col-md-3">
+						<h2>{{ movie.name }}</h2>
+						<li>{{ movie.storyline }}</li>
+					</td>
+					<td class="col-md-3"><h2>{{ movie.release_date }}</h2></td>
+				</tr>
 			<!--<div class="col-md-3">
 				<a href="/movie/detail/{{ movie.slug }}"><img src="{{ movie.picture.url }}" alt="This is the picture of the movie" width="136" height="200"></a>
 				<h4>{{ movie.name }}</h4></a>
 			</div>-->
-			<div class="row">
+			<!--<div class="row">
 			  <div class="col-md-1">
 			    <div class="thumbnail">
 			      <a href="/movie/detail/{{ movie.slug }}"><img src="{{ movie.picture.url }}" alt="This is the picture of the movie" width="136" height="200"></a>
@@ -21,11 +39,26 @@
 			      </div>
 			    </div>
 			  </div>
-			</div>
+			</div>-->
 			{% endfor %}
+			</tbody>
+		</table>
 	</div>
 	
-	<div class="pagination">
+	<center>
+	<nav>
+	  <ul class="pager">
+		<span class="step-links">
+			{% if movies.has_previous %}
+	    		<li><a href="?page={{ movies.previous_page_number }}">Previous</a></li>
+			{% endif %}
+			
+			{% if movies.has_next %}
+           		<li><a href="?page={{ movies.next_page_number }}">Next</a></li>
+        	{% endif %}
+	  </ul>
+	</nav>
+	<!--<div class="pagination">
 		<span class="step-links">
 			{% if movies.has_previous %}
 				<a href="?page={{ movies.previous_page_number }}">previous</a>
@@ -39,5 +72,7 @@
             <a href="?page={{ movies.next_page_number }}">next</a>
         	{% endif %}
     	</span>
+	</div>-->
+	</center>
 	</div>
 {% endblock %}
