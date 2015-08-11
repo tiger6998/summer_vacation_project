@@ -66,6 +66,8 @@ class Comments(models.Model):
 	user = models.ForeignKey(User)
 	movie = models.ForeignKey(Movies)
 	comment = models.TextField()
+	date = models.DateField(default="2015-7-20")
+	likes = models.IntegerField(default=0)
 	
 	def __unicode__(self):
 		return self.movie.name

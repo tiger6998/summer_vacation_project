@@ -5,41 +5,72 @@
 {% block title %}Movie Detail{% endblock %}
 
 {% block body_block %}
-	<h1>{{ movie_name }}</h1>
+	<center>
+	<h1><strong>{{ movie_name }}</strong></h1>
+	</center>
 	{% if movie %}
-	<img src="{{ movie.picture.url }}" alt="This is the picture of the movie">
-	<div>
-		<ul>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3">
+				<img src="{{ movie.picture.url }}" alt="This is the picture of the movie">
+			</div>
+			<div class="col-md-9">
+				<h3 class="text-left"><strong>导演：</strong></p>
+				<h3 class="text-left"><strong>编剧：</strong></h3>
+				<h3 class="text-left"><strong>演员：</strong></h3>
+				<h3 class="text-left"><strong>类型：{{ movie.Genre }}</strong></h3>
+				<h3 class="text-left"><strong>片长：{{ movie.runtime }}</strong></h3>
+				<h3 class="text-left"><strong>上映时间：{{ movie.release_date|date:"Y-m-d" }}</strong></h3>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<h2>剧情简介：</h2>
+		<p class="myp">{{ movie.storyline }}</p>
+	</div>
+		<!--<ul>
 			<li>runtime: {{ movie.runtime }}</li>
 			<li>Genre: {{ movie.Genre }}</li>
 			<li>release date: {{ movie.release_date }}</li>
 			<li>storyline: {{ movie.storyline }}</li>
-		</ul>
-	<div>
+		</ul>-->
 	{% else %}
 	<strong>There is no such movie!</strong>
 	{% endif %}
 	<h2>图片:</h2>
 	<a href="/movie/detail/{{ movie.slug }}/add_picture">添加图片</a>
+	
+	<div class="container-fluid">
 	{% if moviepicture %}
-		<ul>
+		<div class="row">
 		{% for picture in moviepicture %}
-			<li><img src="{{ picture.picture.url }}" alt="This is the picture of the movie"></li>
+			<div class="col-md-2">
+				<img src="{{ picture.picture.url }}" alt="This is the picture of the movie"  width="214", height="317">
+			</div>
 		{% endfor %}
-		</ul>
+		</div>
 	{% else %}
 		<strong> 还没有图片！</strong>
 	{% endif %}
+	</div>
+	
 	<h2>精彩评论:</h2>
 	<a href="/movie/detail/{{ movie.slug }}/add_comment">添加评论</a>
+	<div class="container-fluid">
 	{% if comments %}
-		<ul>
 		{% for comment in comments %}
-			<li><p>{{ comment.comment }}</p></li>
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">{{comment.user.username}}   {{comment.date|date:"Y-m-d"}}</h3>
+			  </div>
+			  <div class="panel-body">
+			    {{comment.comment}}
+			  </div>
+			</div>
 		{% endfor %}
-		</ul>
 	{% else %}
 		<strong> 还没有评论！</strong>
 	{% endif %}
+	</div>
 {% endblock %}
 		

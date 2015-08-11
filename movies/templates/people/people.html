@@ -5,23 +5,33 @@
 {% block title %}People{% endblock %}
 
 {% block body_block %}
-	<h1>{{ people_name }}</h1>
+	<h1><strong>{{ people_name }}</strong></h1>
 	{% if people %}
-	<img src="{{ people.photo.url }}" alt="This is the picture of the people">
-	<div>
-		<ul>
-			<li>career: {{ people.get_career_display }}</li>
-			<li>Intro: {{ people.intro }}</li>
-			<li>born: {{ people.born }}</li>
-		</ul>
-	<div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-3 column">				
+				<img src="{{ people.photo.url }}" alt="This is the picture of the people">
+			</div>
+			<div class="col-md-9">
+				<h3 class="text-left"><strong>职业：{{ people.get_career_display}}</strong></p>
+				<h3 class="text-left"><strong>生日：{{ people.born|date:"Y-m-d"}}</strong></h3>
+			</div>
+		</h3>
+	</div>
+	<div class="container-fluid">
+		<h2>人物简介：</h2>
+		<p class="myp">{{ people.intro }}</p>
+	</div>
 	{% else %}
 	<strong>There is no such person!</strong>
 	{% endif %}
+	
+	
 	<h2>Pitures:</h2>
-	{% if moviepicture %}
+	<a href="/people/detail/{{ people.slug }}/add_picture">添加图片</a>
+	{% if peoplepicture %}
 		<ul>
-		{% for picture in moviepicture %}
+		{% for picture in peoplepicture %}
 			<li><img src="{{ picture.picture.url }}" alt="This is the picture of the movie"></li>
 		{% endfor %}
 		</ul>

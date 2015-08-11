@@ -34,3 +34,8 @@ class MoviePictureForm(forms.ModelForm):
 	class Meta:
 		model = MoviePicture
 		fields = ('picture',)
+		
+class PeoplePictureForm(forms.ModelForm):
+	class Meta:
+		model = PeoplePicture
+		fields = ('picture',)

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from movies.models import *
-from movies.forms import MovieForm, PeopleForm
+from movies.forms import *
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -51,3 +51,31 @@ def people(request, people_name_slug):
 			pass
 	
 	return render(request, 'people/people.html', context_dict)
+	
+@login_required
+def add_picture(request, people_name_slug):
+	
+	added = False
+	
+	if request.method == 'POST':
+		picture_form = PeoplePictureForm(data=request.POST)
+		if picture_form.is_valid():
+			try:
+				people = People.objects.get(slug=people_name_slug)
+			except People.DoesNotExist:
+				print "here is the problem" + people_name_slug
+				pass
+			if people:
+				picture = picture_form.save(commit=False)
+				if 'picture' in request.FILES:
+					picture.picture = request.FILES['picture']
+					picture.people = people
+					picture.save()
+					added = True
+		else:
+			print picture_form.errors
+	else: 
+		picture_form = PeoplePictureForm()
+		
+	return render(request, 'people/add_picture.html',
+		{'picture_form':picture_form, 'added':added, 'people_name_slug':people_name_slug})

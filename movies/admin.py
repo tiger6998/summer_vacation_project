@@ -5,3 +5,4 @@ from models import *
 admin.site.register(Movies)
 admin.site.register(People)
 admin.site.register(UserProfile)
+admin.site.register(MoviePicture)

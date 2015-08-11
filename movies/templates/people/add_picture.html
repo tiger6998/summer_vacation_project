@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Add a picture{% endblock %}
+
+{% block body_block %}
+	{% if added %}
+	<strong>谢谢添加图片! </strong>
+	<a href = "/people/detail/{{ people_name_slug }}">回到影人页面</a><br />
+	{% else %}
+	<strong>你可以在这列添加影人图片!</strong>
+	<form id="picture_form" method="post" action="/people/detail/{{ people_name_slug }}/add_picture/"
+		enctype="multipart/form-data">
+		
+		{% csrf_token %}
+		
+		{{ picture_form.as_p }}
+		<input type="submit" name="submit" value="Add" />
+		
+	</form>
+	{% endif %}
+{% endblock %}

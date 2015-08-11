@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from datetime import date
 # Create your views here.
 def index(request):
 	movie_list = Movies.objects.order_by('-likes')[:5]
@@ -148,6 +148,7 @@ def add_comment(request, movie_name_slug):
 				comment = comment_form.save(commit=False)
 				comment.user = user
 				comment.movie = movie
+				comment.date = date.today()
 				comment.save()
 				added = True
 		else:
