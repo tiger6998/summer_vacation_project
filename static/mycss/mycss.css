@@ -12,3 +12,9 @@ p.myp {
     text-indent: 4em;
     font-size: 200%;
 }
+
+.test {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

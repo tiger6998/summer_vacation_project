@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from movies.models import *
 from movies.forms import *
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 @login_required
@@ -79,3 +80,17 @@ def add_picture(request, people_name_slug):
 		
 	return render(request, 'people/add_picture.html',
 		{'picture_form':picture_form, 'added':added, 'people_name_slug':people_name_slug})
+		
+def peoplelist(request):
+	people_list = People.objects.all()
+	paginator   = Paginator(people_list, 3)
+	
+	page = request.GET.get('page')
+	try:
+		people = paginator.page(page)
+	except PageNotAnInteger:
+		people = paginator.page(1)
+	except EmptyPage:
+		people = paginator.page(paginator.num_pages)
+	
+	return render(request, 'people/people_list.html', {'people':people})

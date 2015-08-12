@@ -71,3 +71,17 @@ class Comments(models.Model):
 	
 	def __unicode__(self):
 		return self.movie.name
+		
+class CastandCrew(models.Model):
+	movie = models.ForeignKey(Movies)
+	celebs = models.ForeignKey(People)
+	positions = (
+        (u'D',u"Director"),
+		(u'C',u"Cast"),
+        (u'W',u"Writer"),
+    )
+	position = models.CharField(max_length=1, choices=positions)
+	
+	def __unicode__(self):
+		return self.movie.name + self.celebs.name
+

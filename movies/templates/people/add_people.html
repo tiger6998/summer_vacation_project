@@ -7,11 +7,11 @@
 {% block body_block %}
 	{% if added %}
 	<strong>thank you for adding a person</strong>
-	<a href="/">Return to the homepage.</a><br />
+	<a href="/movie">Return to the homepage.</a><br />
 	{% else %}
 	<strong>You can add a person here!</strong>
 	
-	<form id="people_form" method="post" action="/add_people/"
+	<form id="people_form" method="post" action="/people/add_people/"
 		enctype="multipart/form-data">
 		
 		{% csrf_token %}

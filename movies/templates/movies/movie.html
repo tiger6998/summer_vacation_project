@@ -15,9 +15,39 @@
 				<img src="{{ movie.picture.url }}" alt="This is the picture of the movie">
 			</div>
 			<div class="col-md-9">
-				<h3 class="text-left"><strong>导演：</strong></p>
-				<h3 class="text-left"><strong>编剧：</strong></h3>
-				<h3 class="text-left"><strong>演员：</strong></h3>
+				<h3 class="text-left text"><strong>导演：
+					{% if directors %}
+						{% for director in directors %}
+							<a href="{% url 'people' director.celebs.slug %}">{{ director.celebs.name }}</a>
+							{% if forloop.last %}
+							{% else %}
+								/
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+				</strong></h3>
+				<h3 class="text-left text"><strong>编剧：
+					{% if writers %}
+						{% for writer in writers %}
+							<a href="{% url 'people' writer.celebs.slug %}">{{ writer.celebs.name }}</a>
+							{% if forloop.last %}
+							{% else %}
+								/
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+				</strong></h3>
+				<h3 class="text-left text"><strong>演员：
+					{% if cast %}
+						{% for people in cast %}
+							<a href="{% url 'people' people.celebs.slug %}">{{ people.celebs.name }}</a>
+							{% if forloop.last %}
+							{% else %}
+								/
+							{% endif %}
+						{% endfor %}
+					{% endif %}
+				</strong></h3>
 				<h3 class="text-left"><strong>类型：{{ movie.Genre }}</strong></h3>
 				<h3 class="text-left"><strong>片长：{{ movie.runtime }}</strong></h3>
 				<h3 class="text-left"><strong>上映时间：{{ movie.release_date|date:"Y-m-d" }}</strong></h3>
@@ -44,7 +74,7 @@
 	{% if moviepicture %}
 		<div class="row">
 		{% for picture in moviepicture %}
-			<div class="col-md-2">
+			<div class="col-md-3">
 				<img src="{{ picture.picture.url }}" alt="This is the picture of the movie"  width="214", height="317">
 			</div>
 		{% endfor %}

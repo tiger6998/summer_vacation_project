@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Add a comment{% endblock %}
+
+{% block body_block %}
+	<div class="container">
+	<div class="table">
+		<h1>影人: </h1>
+		<table class="table">
+			<!--<thead>
+				<tr>
+					<th></th>
+					<th>名称</th>
+					<th>年份</th>
+				</tr>
+			</thead>-->
+			<tbody>
+			{% for person in people %}
+				<tr>
+					<td class="col-md-3"><a href="/people/detail/{{ person.slug }}"><img src="{{ person.photo.url }}" alt="This is the picture of the celebs" width="214" height="317"></a></td>
+					<td class="col-md-3">
+						<h2>{{ person.name }}</h2>
+						<li>{{ person.get_career_display }}</li>
+						<li>{{ person.born|date:"Y-m-d" }}</li>
+						<li><p class="test">{{ person.intro }}</p></li>>
+					</td>
+				</tr>
+			
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	
+	<center>
+	<nav>
+	  <ul class="pager">
+		<span class="step-links">
+			{% if people.has_previous %}
+	    		<li><a href="?page={{ people.previous_page_number }}">Previous</a></li>
+			{% endif %}
+			
+			{% if people.has_next %}
+           		<li><a href="?page={{ people.next_page_number }}">Next</a></li>
+        	{% endif %}
+	  </ul>
+	</nav>
+	<!--<div class="pagination">
+		<span class="step-links">
+			{% if movies.has_previous %}
+				<a href="?page={{ movies.previous_page_number }}">previous</a>
+			{% endif %}
+			
+			<span class="current">
+				Page {{ movies.number }} of {{ movies.paginator.num_pages }}.
+			</span>
+			
+			{% if movies.has_next %}
+            <a href="?page={{ movies.next_page_number }}">next</a>
+        	{% endif %}
+    	</span>
+	</div>-->
+	</center>
+	</div>
+{% endblock %}

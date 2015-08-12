@@ -60,6 +60,15 @@ def movie(request, movie_name_slug):
 		pass
 	if movie:
 		try:
+			directors = CastandCrew.objects.filter(movie=movie, position='D')
+			cast = CastandCrew.objects.filter(movie=movie, position='C')
+			writers = CastandCrew.objects.filter(movie=movie, position='W')
+			context_dict['directors'] = directors
+			context_dict['cast'] = cast
+			context_dict['writers'] = writers
+		except CastandCrew.DoesNotExist:
+			print "??????"
+		try:
 			moviepicture = MoviePicture.objects.filter(movie=movie)
 			context_dict['moviepicture'] = moviepicture
 		except MoviePicture.DoesNotExist:
@@ -68,7 +77,7 @@ def movie(request, movie_name_slug):
 		try:
 			comments = Comments.objects.filter(movie=movie)
 			context_dict['comments'] = comments
-		except:
+		except Comments.DoesNotExist:
 			pass
 	return render(request, 'movies/movie.html', context_dict)
 	

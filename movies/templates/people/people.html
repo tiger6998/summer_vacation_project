@@ -10,13 +10,14 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-3 column">				
-				<img src="{{ people.photo.url }}" alt="This is the picture of the people">
+				<img src="{{ people.photo.url }}" alt="This is the picture of the people" width="214" height="317">
 			</div>
 			<div class="col-md-9">
 				<h3 class="text-left"><strong>职业：{{ people.get_career_display}}</strong></p>
 				<h3 class="text-left"><strong>生日：{{ people.born|date:"Y-m-d"}}</strong></h3>
 			</div>
 		</h3>
+	</div>
 	</div>
 	<div class="container-fluid">
 		<h2>人物简介：</h2>
@@ -27,15 +28,20 @@
 	{% endif %}
 	
 	
-	<h2>Pitures:</h2>
+	<h2>图片:</h2>
 	<a href="/people/detail/{{ people.slug }}/add_picture">添加图片</a>
+	
+	<div class="container-fluid">
 	{% if peoplepicture %}
-		<ul>
+		<div class="row">
 		{% for picture in peoplepicture %}
-			<li><img src="{{ picture.picture.url }}" alt="This is the picture of the movie"></li>
+			<div class="col-md-3">
+				<img src="{{ picture.picture.url }}" alt="This is the picture of the movie" width="214", height="317">
+			</div>
 		{% endfor %}
-		</ul>
+		</div>
 	{% else %}
 		<strong> 还没有图片！</strong>
 	{% endif %}
+	</div>
 {% endblock %}
