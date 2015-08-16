@@ -5,6 +5,7 @@
 {% block title %}Add a comment{% endblock %}
 
 {% block body_block %}
+	
 	<div class="container">
 	<div class="table">
 		<h1>电影: </h1>
@@ -22,7 +23,7 @@
 					<td class="col-md-3"><a href="/movie/detail/{{ movie.slug }}"><img src="{{ movie.picture.url }}" alt="This is the picture of the movie" width="214" height="317"></a></td>
 					<td class="col-md-3">
 						<h2>{{ movie.name }}</h2>
-						<li class="test">{{ movie.storyline }}</li> <a href="/movie/detail/{{ movie.slug }}">...更多</a>
+						<li>{{ movie.storyline }}</li>
 					</td>
 					<td class="col-md-3"><h2>{{ movie.release_date }}</h2></td>
 				</tr>
@@ -45,34 +46,6 @@
 		</table>
 	</div>
 	
-	<center>
-	<nav>
-	  <ul class="pager">
-		<span class="step-links">
-			{% if movies.has_previous %}
-	    		<li><a href="?page={{ movies.previous_page_number }}">Previous</a></li>
-			{% endif %}
-			
-			{% if movies.has_next %}
-           		<li><a href="?page={{ movies.next_page_number }}">Next</a></li>
-        	{% endif %}
-	  </ul>
-	</nav>
-	<!--<div class="pagination">
-		<span class="step-links">
-			{% if movies.has_previous %}
-				<a href="?page={{ movies.previous_page_number }}">previous</a>
-			{% endif %}
-			
-			<span class="current">
-				Page {{ movies.number }} of {{ movies.paginator.num_pages }}.
-			</span>
-			
-			{% if movies.has_next %}
-            <a href="?page={{ movies.next_page_number }}">next</a>
-        	{% endif %}
-    	</span>
-	</div>-->
-	</center>
 	</div>
+	
 {% endblock %}

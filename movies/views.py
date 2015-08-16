@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import date
+from django.db.models import Q
+
 # Create your views here.
 def index(request):
 	movie_list = Movies.objects.order_by('-likes')[:5]
@@ -19,6 +21,9 @@ def index(request):
 			context_dict['userprofile'] = userprofile
 		except UserProfile.DoesNotExist:
 			pass
+	# if request.method == 'POST':
+	# 	movie_name = request.POST.get("movieforsearching")
+	# 	return HttpResponseRedirect("movie/search_result/?m=" + movie_name)
 	return render(request, 'movies/index.html', context_dict)
 
 def about(request):
@@ -125,7 +130,7 @@ def user_login(request):
 		if user:
 			if user.is_active:
 				login(request, user)
-				return HttpResponseRedirect('/movie')
+				return HttpResponseRedirect('/')
 			else:
 				return HttpResponse("Your are DEAD")
 		else:
@@ -209,4 +214,24 @@ def movielist(request):
 		movies = paginator.page(paginator.num_pages)
 		
 	return render(request, 'movies/movie_list.html', {'movies': movies})
+	
+def MovieSearch(request):
+	context_dict = {}
+	print request.method
+	if request.method == 'GET':
+		movie_name = request.GET.get("movieforsearching")
+		print movie_name
+		try:
+			movie = Movies.objects.filter(Q(name=movie_name));
+			#movie = Movies.objects.all()
+		except Movies.DoesNotExist:
+			print "no such movie"
+		if movie:
+			context_dict["movies"] = movie;
+			print movie[0].name
+		else:
+			print "????"
+	return render(request,'movies/searchresult.html', context_dict)
+			
+			
 		
