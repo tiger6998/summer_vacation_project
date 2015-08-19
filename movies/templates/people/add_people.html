@@ -7,7 +7,7 @@
 {% block body_block %}
 	{% if added %}
 	<strong>thank you for adding a person</strong>
-	<a href="/movie">Return to the homepage.</a><br />
+	<a href="{% url 'index' %}">Return to the homepage.</a><br />
 	{% else %}
 	<strong>You can add a person here!</strong>
 	

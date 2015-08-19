@@ -142,7 +142,7 @@ def user_login(request):
 		
 def user_logout(request):
 	logout(request)
-	return HttpResponseRedirect('/movie/')
+	return HttpResponseRedirect('/')
 
 @login_required(login_url='/movie/login/')
 def add_comment(request, movie_name_slug):
