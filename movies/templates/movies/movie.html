@@ -51,6 +51,15 @@
 				<h3 class="text-left"><strong>类型：{{ movie.Genre }}</strong></h3>
 				<h3 class="text-left"><strong>片长：{{ movie.runtime }}</strong></h3>
 				<h3 class="text-left"><strong>上映时间：{{ movie.release_date|date:"Y-m-d" }}</strong></h3>
+				<p class="text-right">
+
+					<strong id="like_count">{{ movie.likes }}</strong> 人喜欢这部电影
+					
+						<button id="likes" data-movieid="{{ movie.id }}" class="btn btn-primary" type="button">
+						<span class="glyphicon glyphicon-thumbs-up"></span>
+						Like
+						</button>					
+				</p>
 			</div>
 		</div>
 	</div>

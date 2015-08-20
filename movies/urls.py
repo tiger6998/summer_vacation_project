@@ -13,5 +13,6 @@ urlpatterns = patterns('',
 	url(r'^about/$', views.about, name='about'),
 	url(r'^movie_list/$', views.movielist, name='movie_list'),
 	url(r'^search_result/$', views.MovieSearch, name='moviesearch'),
+	url(r'^like_movie/$', views.like_movie, name='like_movie'),
 	#url(r'^add_people/$', views.add_people, name='add_people'),
 	)

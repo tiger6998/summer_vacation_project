@@ -233,5 +233,18 @@ def MovieSearch(request):
 			print "????"
 	return render(request,'movies/searchresult.html', context_dict)
 			
-			
-		
+def like_movie(request):
+	
+	print "yes it is"
+	movie_id = None
+	if request.method == 'GET':
+		movie_id = request.GET['movie_id']
+	print movie_id
+	likes = 0
+	if movie_id:
+		movie = Movies.objects.get(id=int(movie_id))
+		if movie:
+			likes = movie.likes + 1
+			movie.likes = likes
+			movie.save()			
+	return HttpResponse(likes)
