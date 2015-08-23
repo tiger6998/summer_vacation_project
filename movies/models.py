@@ -10,7 +10,6 @@ class Movies(models.Model):
 	runtime = models.IntegerField(default=0)
 	views = models.IntegerField(default=0)
 	likes = models.IntegerField(default=0)
-	Genre = models.CharField(max_length=100)
 	storyline = models.TextField()
 	picture = models.ImageField(upload_to='media', blank=True)
 	slug = models.SlugField(unique=True)
