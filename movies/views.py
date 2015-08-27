@@ -135,7 +135,7 @@ def user_login(request):
 				return HttpResponse("Your are DEAD")
 		else:
 			print "Invalid login details: {0}, {1}".format(username,password)
-			return HttpResponse("Invalid login details supplied.")
+			return HttpResponse("There is no such USER.")
 		
 	else:
 		return render(request,'movies/login.html',{})

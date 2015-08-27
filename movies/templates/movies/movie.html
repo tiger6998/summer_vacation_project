@@ -77,7 +77,9 @@
 	<strong>There is no such movie!</strong>
 	{% endif %}
 	<h2>图片:</h2>
+	{% if user.is_authenticated %}
 	<a href="/movie/detail/{{ movie.slug }}/add_picture">添加图片</a>
+	{% endif %}
 	
 	<div class="container-fluid">
 	{% if moviepicture %}
@@ -94,7 +96,9 @@
 	</div>
 	
 	<h2>精彩评论:</h2>
+	{% if user.is_authenticated %}
 	<a href="/movie/detail/{{ movie.slug }}/add_comment">添加评论</a>
+	{% endif %}
 	<div class="container-fluid">
 	{% if comments %}
 		{% for comment in comments %}
